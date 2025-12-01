@@ -113,13 +113,7 @@ fun HomeScreenContent(
     onEvent: (HomeScreenUiEvent) -> Unit,
 ) {
     val listState = rememberLazyListState()
-    val lastVisibleItemIndex by remember {
-        derivedStateOf {
-            listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-        }
-    }
 
-    val job = rememberCoroutineScope()
     LazyColumn(
         state = listState,
         modifier = modifier
@@ -140,12 +134,6 @@ fun HomeScreenContent(
     }
     if (listState.isScrolledToTheEnd()) {
         onEvent(HomeScreenUiEvent.OnLoadMore)
-    }
-
-
-    LaunchedEffect(lastVisibleItemIndex) {
-        Log.d("lion222", "lastVisibleItemIndex: $lastVisibleItemIndex")
-        Log.d("lion222", "totalItemsCount: ${listState.layoutInfo.totalItemsCount}")
     }
 }
 
@@ -313,7 +301,7 @@ fun handleSideEffect(
 ) {
     when (effect) {
         HomeScreenUiSideEffect.NoEffect -> {
-// stub
+           // stub
         }
 
         is HomeScreenUiSideEffect.OpenBlogDetailScreen -> {

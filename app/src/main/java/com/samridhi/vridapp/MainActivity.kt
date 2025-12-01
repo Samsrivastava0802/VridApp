@@ -9,39 +9,43 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.samridhi.vridapp.navigation.AppNavGraph
+import com.samridhi.vridapp.navigation.AppNavigationActions
 import com.samridhi.vridapp.ui.theme.VridAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             VridAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                VridApp(
+                    onNavigationEnd = {
+                        finish()
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+fun VridApp(
+    onNavigationEnd: () -> Unit,
+) {
+    val navController = rememberNavController()
+    val navActions: AppNavigationActions = remember(navController) {
+        AppNavigationActions(navController, onNavigationEnd)
+    }
+    AppNavGraph(
+        navController = navController,
+        navActions = navActions
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    VridAppTheme {
-        Greeting("Android")
-    }
-}

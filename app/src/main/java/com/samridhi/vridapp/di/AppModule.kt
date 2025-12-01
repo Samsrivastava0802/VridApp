@@ -1,5 +1,16 @@
 package com.samridhi.vridapp.di
 
+import com.google.gson.GsonBuilder
+import com.samridhi.vridapp.data.BlogApiClientService
+import com.samridhi.vridapp.utils.Constants
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {

@@ -46,7 +46,6 @@ class HomeScreenViewModel @Inject constructor(
                             link = it.link ?: ""
                         )
                     }
-                    // Added manual delay to see the shimmer
                     if (isLoadMore) delay(600)
                     uiState = uiState.copy(
                         items = if (isLoadMore) uiState.items + blogList else blogList,
