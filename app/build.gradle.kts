@@ -73,6 +73,9 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     // work
     implementation(libs.work.runtime)
+
+    // shimmer
+    implementation(libs.shimmer)
 }
 
 kapt {
